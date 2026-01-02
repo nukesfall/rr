@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="color-scheme" content="light" />
-  <title>Robot Repair™</title>
+  <title>Robot Repair Co.</title>
 
   <style>
     :root{
@@ -15,23 +15,22 @@
       --muted: rgba(11,18,32,.62);
 
       --card: rgba(255,255,255,.74);
-      --card2: rgba(255,255,255,.58);
+      --card2: rgba(255,255,255,.56);
       --line: rgba(11,18,32,.10);
-      --line2: rgba(11,18,32,.07);
 
-      --shadow: 0 28px 70px rgba(15,26,50,.10);
+      --shadow: 0 26px 70px rgba(15,26,50,.10);
       --shadow2: 0 14px 38px rgba(15,26,50,.08);
 
       --radius: 18px;
       --pill: 999px;
-
       --max: 1120px;
+
       --focus: 0 0 0 4px rgba(65,120,255,.18);
 
-      --accentA: #5a7cff;
-      --accentB: #7d5cff;
-      --accentC: #ff5fb7;
-      --accentD: #46d6ff;
+      --a: #5a7cff;
+      --b: #7d5cff;
+      --c: #ff5fb7;
+      --d: #46d6ff;
     }
 
     *{ box-sizing:border-box; }
@@ -54,7 +53,6 @@
       background:transparent;
       font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI Variable", "Segoe UI", Roboto, Helvetica, Arial;
       letter-spacing:.1px;
-      text-rendering: geometricPrecision;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       overflow-x:hidden;
@@ -63,24 +61,24 @@
     a{ color:inherit; text-decoration:none; }
     a:hover{ text-decoration:underline; }
 
-    .grain{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:2;
-      opacity:.06;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
-    }
-
     #dust{
       position:fixed;
       inset:0;
       width:100%;
       height:100%;
       pointer-events:none;
-      z-index:1;
+      z-index:0;
       opacity:.55;
+    }
+
+    .grain{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:3;
+      opacity:.06;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -102,24 +100,23 @@
       border: 1px solid rgba(11,18,32,.08);
       background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.42));
       box-shadow: 0 10px 30px rgba(15,26,50,.06);
+      position:relative;
     }
-
     .bar{
       height:62px;
-      padding: 0 14px;
+      padding: 0 12px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:14px;
+      gap:12px;
     }
 
     .brand{
-      font-weight: 720;
-      letter-spacing:-.3px;
-      white-space:nowrap;
       display:flex;
       align-items:center;
       gap:10px;
+      min-width:0;
+      white-space:nowrap;
     }
     .mark{
       width:26px; height:26px;
@@ -129,46 +126,114 @@
         linear-gradient(135deg, rgba(90,124,255,.95), rgba(125,92,255,.85), rgba(255,95,183,.75));
       box-shadow: 0 12px 26px rgba(90,124,255,.18);
       border: 1px solid rgba(11,18,32,.10);
-      flex: 0 0 auto;
+      flex:0 0 auto;
     }
-    .brand span{
-      font-size: 14px;
+    .brandText{
+      font-weight: 760;
+      letter-spacing:-.3px;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      font-size: 13.5px;
+      color: rgba(11,18,32,.90);
     }
 
-    nav{
-      display:flex;
-      gap: 10px;
+    .menuBtn{
+      display:inline-flex;
       align-items:center;
-      flex-wrap:wrap;
-      justify-content:flex-end;
+      gap:10px;
+      border: 1px solid rgba(11,18,32,.10);
+      background: rgba(255,255,255,.62);
+      border-radius: 14px;
+      padding: 10px 12px;
+      cursor:pointer;
+      box-shadow: 0 10px 26px rgba(15,26,50,.06);
+      transition: background .14s ease, transform .14s ease, border-color .14s ease;
+      color: rgba(11,18,32,.86);
+      font-weight: 740;
+      font-size: 13px;
+      user-select:none;
+    }
+    .menuBtn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.80);
+      border-color: rgba(11,18,32,.14);
     }
 
-    .navlink{
-      font-size: 13px;
-      color: rgba(11,18,32,.68);
-      padding: 8px 10px;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      transition: background .14s ease, border-color .14s ease, color .14s ease;
-      white-space:nowrap;
+    .burger{
+      width: 18px;
+      height: 18px;
+      display:inline-block;
+      position:relative;
     }
-    .navlink:hover{
+    .burger i{
+      position:absolute;
+      left: 2px;
+      right: 2px;
+      height: 1.8px;
+      background: rgba(11,18,32,.72);
+      border-radius: 999px;
+      top: 4px;
+      transition: transform .16s ease, opacity .16s ease, top .16s ease;
+    }
+    .burger i:nth-child(2){ top: 8px; opacity: .9; }
+    .burger i:nth-child(3){ top: 12px; opacity: .85; }
+
+    .menuBtn[aria-expanded="true"] .burger i:nth-child(1){ top: 8px; transform: rotate(45deg); }
+    .menuBtn[aria-expanded="true"] .burger i:nth-child(2){ opacity: 0; }
+    .menuBtn[aria-expanded="true"] .burger i:nth-child(3){ top: 8px; transform: rotate(-45deg); }
+
+    .menuPanel{
+      position:absolute;
+      right: 10px;
+      top: 66px;
+      width: min(340px, calc(100vw - 48px));
+      border-radius: 18px;
+      border: 1px solid rgba(11,18,32,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.66));
+      box-shadow: 0 22px 60px rgba(15,26,50,.12);
+      padding: 8px;
+      display:none;
+      z-index: 999;
+      backdrop-filter: blur(12px);
+    }
+    .menuPanel.open{ display:block; animation: drop .16s ease-out; }
+    @keyframes drop{
+      from{ transform: translateY(-6px); opacity: 0; }
+      to{ transform: translateY(0); opacity: 1; }
+    }
+    .menuPanel a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      color: rgba(11,18,32,.80);
+      font-size: 13px;
+      font-weight: 720;
+    }
+    .menuPanel a:hover{
       text-decoration:none;
-      background: rgba(255,255,255,.55);
+      background: rgba(255,255,255,.74);
       border-color: rgba(11,18,32,.08);
       color: rgba(11,18,32,.92);
     }
+    .menuPanel .meta{
+      font-size: 12px;
+      color: rgba(11,18,32,.52);
+      font-weight: 600;
+    }
 
     .wrap{
-      width:min(var(--max), calc(100% - 40px));
+      width:min(880px, calc(100% - 40px));
       margin: 0 auto;
-      padding: 18px 0 70px;
+      padding: 18px 0 64px;
       position:relative;
-      z-index:3;
+      z-index:2;
     }
 
     .hero{
-      margin-top: 18px;
+      margin-top: 14px;
       border-radius: 26px;
       border: 1px solid rgba(11,18,32,.08);
       background:
@@ -180,23 +245,22 @@
     }
 
     .heroInner{
-      padding: 28px 22px;
+      padding: 22px 16px;
       display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 18px;
+      grid-template-columns: 1fr .9fr;
+      gap: 14px;
       align-items:center;
     }
-
-    @media (max-width: 980px){
+    @media (max-width: 920px){
       .heroInner{ grid-template-columns: 1fr; }
     }
 
     h1{
       margin:0;
-      font-size: clamp(34px, 4.4vw, 56px);
+      font-size: clamp(28px, 6vw, 44px);
       line-height: 1.06;
       letter-spacing: -1.0px;
-      font-weight: 780;
+      font-weight: 820;
     }
 
     .lead{
@@ -204,28 +268,11 @@
       color: rgba(11,18,32,.66);
       line-height: 1.55;
       font-size: 15px;
-      max-width: 62ch;
-    }
-
-    .chips{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      margin-top: 14px;
-    }
-    .chip{
-      font-size: 12px;
-      color: rgba(11,18,32,.62);
-      border: 1px solid rgba(11,18,32,.10);
-      background: rgba(255,255,255,.58);
-      padding: 7px 10px;
-      border-radius: var(--pill);
-      letter-spacing:.18px;
-      text-transform: uppercase;
+      max-width: 60ch;
     }
 
     .ctaRow{
-      margin-top: 16px;
+      margin-top: 14px;
       display:flex;
       gap: 10px;
       flex-wrap:wrap;
@@ -243,7 +290,7 @@
       background: rgba(255,255,255,.70);
       box-shadow: var(--shadow2);
       cursor:pointer;
-      font-weight: 720;
+      font-weight: 760;
       font-size: 13px;
       color: rgba(11,18,32,.92);
       transition: transform .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
@@ -257,8 +304,7 @@
     }
     .btn.primary{
       border-color: rgba(90,124,255,.22);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.84), rgba(255,255,255,.62));
+      background: linear-gradient(180deg, rgba(255,255,255,.84), rgba(255,255,255,.62));
       position:relative;
     }
     .btn.primary::before{
@@ -277,16 +323,16 @@
     }
 
     .mini{
-      color: rgba(11,18,32,.58);
+      margin-top: 10px;
+      color: rgba(11,18,32,.56);
       font-size: 13px;
-      margin-top: 12px;
     }
 
     .heroArt{
       display:flex;
       justify-content:center;
       align-items:center;
-      min-height: 260px;
+      min-height: 220px;
     }
 
     .artCard{
@@ -302,7 +348,6 @@
       position:relative;
       overflow:hidden;
     }
-
     .softGlow{
       position:absolute;
       inset:-40%;
@@ -313,42 +358,11 @@
       filter: blur(14px);
       opacity:.85;
     }
-
     .artSvg{
       position:absolute;
-      inset: 0;
+      inset:0;
       width:100%;
       height:100%;
-    }
-
-    .section{
-      margin-top: 16px;
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 12px;
-    }
-    @media (max-width: 980px){
-      .section{ grid-template-columns: 1fr; }
-    }
-
-    .card{
-      border-radius: var(--radius);
-      border: 1px solid rgba(11,18,32,.08);
-      background: linear-gradient(180deg, rgba(255,255,255,.70), rgba(255,255,255,.46));
-      box-shadow: var(--shadow2);
-      padding: 16px;
-    }
-    .card h3{
-      margin:0 0 6px;
-      font-size: 14px;
-      letter-spacing:-.2px;
-      font-weight: 760;
-    }
-    .card p{
-      margin:0;
-      color: rgba(11,18,32,.62);
-      line-height: 1.55;
-      font-size: 13.5px;
     }
 
     .formBlock{
@@ -361,46 +375,33 @@
     }
 
     .formInner{
-      padding: 18px;
+      padding: 16px;
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 12px;
       align-items:start;
     }
-
-    @media (max-width: 980px){
+    @media (max-width: 920px){
       .formInner{ grid-template-columns: 1fr; }
     }
 
-    .formTitle{
-      display:flex;
-      flex-direction:column;
-      gap: 8px;
-    }
     .formTitle b{
-      font-size: 16px;
+      display:block;
+      font-size: 15px;
       font-weight: 820;
       letter-spacing:-.3px;
+      margin-bottom: 6px;
     }
     .formTitle span{
       color: rgba(11,18,32,.62);
-      line-height: 1.5;
       font-size: 13.5px;
+      line-height: 1.5;
     }
 
     form{
       display:flex;
       flex-direction:column;
       gap: 10px;
-    }
-
-    .row{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    @media (max-width: 560px){
-      .row{ grid-template-columns: 1fr; }
     }
 
     label{
@@ -410,41 +411,27 @@
       margin-bottom: 6px;
     }
 
-    input, select, textarea{
+    textarea{
       width:100%;
       border: 1px solid rgba(11,18,32,.12);
-      background: rgba(255,255,255,.78);
+      background: rgba(255,255,255,.80);
       border-radius: 14px;
       padding: 11px 12px;
       font: inherit;
       font-size: 14px;
       color: rgba(11,18,32,.92);
       outline:none;
+      min-height: 104px;
+      resize: vertical;
     }
-    textarea{ min-height: 104px; resize: vertical; }
-
-    input:focus, select:focus, textarea:focus{
+    textarea:focus{
       box-shadow: var(--focus);
       border-color: rgba(65,120,255,.30);
     }
 
-    .formActions{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      align-items:center;
-      margin-top: 2px;
-    }
-
-    .hint{
-      font-size: 12.5px;
-      color: rgba(11,18,32,.58);
-      line-height: 1.45;
-    }
-
     footer{
-      margin-top: 18px;
-      padding: 18px 0 10px;
+      margin-top: 16px;
+      padding: 16px 0 10px;
       border-top: 1px solid rgba(11,18,32,.08);
       color: rgba(11,18,32,.62);
       font-size: 12.5px;
@@ -459,7 +446,7 @@
       left: 50%;
       bottom: 18px;
       transform: translateX(-50%);
-      width: min(var(--max), calc(100% - 40px));
+      width: min(880px, calc(100% - 40px));
       background: rgba(11,18,32,.92);
       color: rgba(255,255,255,.92);
       border: 1px solid rgba(255,255,255,.12);
@@ -475,6 +462,13 @@
       from{ transform: translateX(-50%) translateY(10px); opacity:0; }
       to{ transform: translateX(-50%) translateY(0); opacity:1; }
     }
+
+    @media (max-width: 560px){
+      .barWrap{ width: calc(100% - 24px); margin-top: 10px; }
+      .wrap{ width: calc(100% - 24px); }
+      .bar{ height: 58px; padding: 0 10px; }
+      .heroInner{ padding: 18px 14px; }
+    }
   </style>
 </head>
 
@@ -487,14 +481,20 @@
       <div class="bar">
         <div class="brand">
           <div class="mark" aria-hidden="true"></div>
-          <span>Robot Repair Co.</span>
+          <div class="brandText">Robot Repair Co.</div>
         </div>
-        <nav aria-label="Primary">
-          <a class="navlink" href="#services">Services</a>
-          <a class="navlink" href="#how">How it works</a>
-          <a class="navlink" href="#request">Get repair</a>
-          <a class="navlink" href="mailto:service@robotrepair.co">Email</a>
-        </nav>
+
+        <button class="menuBtn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menuPanel" aria-label="Open menu">
+          <span class="burger" aria-hidden="true"><i></i><i></i><i></i></span>
+          Menu
+        </button>
+
+        <div class="menuPanel" id="menuPanel" role="dialog" aria-label="Menu">
+          <a href="#services"><span>Services</span><span class="meta">What we fix</span></a>
+          <a href="#how"><span>How it works</span><span class="meta">Steps</span></a>
+          <a href="#request"><span>Get repair</span><span class="meta">Request</span></a>
+          <a href="mailto:service@robotrepair.co"><span>Email</span><span class="meta">service@robotrepair.co</span></a>
+        </div>
       </div>
     </div>
   </header>
@@ -504,21 +504,11 @@
       <div class="heroInner">
         <div>
           <h1>Repair your home robot.</h1>
-          <p class="lead">
-            Repairs for humanoids, robot vacuums, and companion bots. Diagnostics, parts, calibration, and firmware recovery.
-          </p>
-
-          <div class="chips" aria-label="Coverage">
-            <span class="chip">Humanoids</span>
-            <span class="chip">Robot vacuums</span>
-            <span class="chip">Companion bots</span>
-            <span class="chip">Assistive devices</span>
-          </div>
+          <p class="lead">Humanoids, robot vacuums, companion bots.</p>
 
           <div class="ctaRow">
-            <a class="btn primary" href="#request">Start repair request</a>
+            <a class="btn primary" href="#request">Start request</a>
             <button class="btn" id="pricingBtn" type="button">Pricing</button>
-            <a class="btn" href="#how">How it works</a>
           </div>
 
           <div class="mini">Mon–Fri · 9–5 · service@robotrepair.co</div>
@@ -533,19 +523,16 @@
                   <stop offset="0" stop-color="rgba(255,255,255,.94)"/>
                   <stop offset="1" stop-color="rgba(255,255,255,.46)"/>
                 </linearGradient>
-
                 <linearGradient id="visor" x1="0" y1="0" x2="1" y2="1">
                   <stop offset="0" stop-color="rgba(11,18,32,.92)"/>
                   <stop offset="1" stop-color="rgba(11,18,32,.78)"/>
                 </linearGradient>
-
                 <radialGradient id="orb" cx="50%" cy="50%" r="60%">
                   <stop offset="0" stop-color="rgba(70,214,255,.85)"/>
                   <stop offset=".45" stop-color="rgba(125,92,255,.70)"/>
                   <stop offset=".75" stop-color="rgba(255,95,183,.62)"/>
                   <stop offset="1" stop-color="rgba(255,255,255,0)"/>
                 </radialGradient>
-
                 <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
                   <feGaussianBlur stdDeviation="8" result="b"/>
                   <feMerge>
@@ -555,119 +542,84 @@
                 </filter>
               </defs>
 
-              <rect x="0" y="0" width="800" height="600" fill="transparent"/>
+              <path d="M455 120
+                       C520 120, 580 180, 580 250
+                       C580 340, 520 395, 455 410
+                       C470 385, 482 350, 482 300
+                       C482 215, 450 160, 420 130
+                       C432 124, 444 120, 455 120Z"
+                    fill="url(#shell)" opacity=".88" stroke="rgba(11,18,32,.08)" stroke-width="2"/>
 
-              <g transform="translate(0,0)">
-                <path d="M455 120
-                         C520 120, 580 180, 580 250
-                         C580 340, 520 395, 455 410
-                         C470 385, 482 350, 482 300
-                         C482 215, 450 160, 420 130
-                         C432 124, 444 120, 455 120Z"
-                      fill="url(#shell)" opacity=".88" stroke="rgba(11,18,32,.08)" stroke-width="2"/>
+              <path d="M345 120
+                       C280 120, 220 180, 220 250
+                       C220 340, 280 395, 345 410
+                       C330 385, 318 350, 318 300
+                       C318 215, 350 160, 380 130
+                       C368 124, 356 120, 345 120Z"
+                    fill="url(#shell)" opacity=".88" stroke="rgba(11,18,32,.08)" stroke-width="2"/>
 
-                <path d="M345 120
-                         C280 120, 220 180, 220 250
-                         C220 340, 280 395, 345 410
-                         C330 385, 318 350, 318 300
-                         C318 215, 350 160, 380 130
-                         C368 124, 356 120, 345 120Z"
-                      fill="url(#shell)" opacity=".88" stroke="rgba(11,18,32,.08)" stroke-width="2"/>
+              <path d="M400 130
+                       C450 130, 495 175, 495 235
+                       C495 320, 455 368, 400 382
+                       C345 368, 305 320, 305 235
+                       C305 175, 350 130, 400 130Z"
+                    fill="url(#visor)" opacity=".92" stroke="rgba(255,255,255,.10)" stroke-width="2"/>
 
-                <path d="M400 130
-                         C450 130, 495 175, 495 235
-                         C495 320, 455 368, 400 382
-                         C345 368, 305 320, 305 235
-                         C305 175, 350 130, 400 130Z"
-                      fill="url(#visor)" opacity=".92" stroke="rgba(255,255,255,.10)" stroke-width="2"/>
+              <circle cx="400" cy="250" r="96" fill="url(#orb)" filter="url(#soft)" opacity=".86"/>
+              <circle cx="400" cy="250" r="30" fill="rgba(255,255,255,.18)" opacity=".55"/>
 
-                <circle cx="400" cy="250" r="96" fill="url(#orb)" filter="url(#soft)" opacity=".86"/>
-                <circle cx="400" cy="250" r="30" fill="rgba(255,255,255,.18)" opacity=".55"/>
-
-                <path d="M400 382
-                         C448 388, 505 425, 522 478
-                         C530 502, 520 520, 495 532
-                         C468 545, 438 536, 400 530
-                         C362 536, 332 545, 305 532
-                         C280 520, 270 502, 278 478
-                         C295 425, 352 388, 400 382Z"
-                      fill="url(#shell)" opacity=".70" stroke="rgba(11,18,32,.08)" stroke-width="2"/>
-              </g>
+              <path d="M400 382
+                       C448 388, 505 425, 522 478
+                       C530 502, 520 520, 495 532
+                       C468 545, 438 536, 400 530
+                       C362 536, 332 545, 305 532
+                       C280 520, 270 502, 278 478
+                       C295 425, 352 388, 400 382Z"
+                    fill="url(#shell)" opacity=".70" stroke="rgba(11,18,32,.08)" stroke-width="2"/>
             </svg>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="services">
-      <div class="card">
-        <h3>Diagnostics</h3>
-        <p>Power, motors, sensors, logs, connectivity, safety checks.</p>
-      </div>
-      <div class="card">
-        <h3>Repairs</h3>
-        <p>Parts replacement, alignment, cleaning, mechanical service.</p>
-      </div>
-      <div class="card">
-        <h3>Calibration & firmware</h3>
-        <p>Sensor calibration, firmware recovery, configuration restore.</p>
+    <!-- kept minimal but still real: two tiny info blocks -->
+    <section class="hero" id="services" style="margin-top:12px;">
+      <div class="heroInner" style="grid-template-columns:1fr; padding:16px;">
+        <div>
+          <h2 style="margin:0; font-size:14px; font-weight:820; letter-spacing:-.2px;">Services</h2>
+          <p style="margin:8px 0 0; color:rgba(11,18,32,.62); font-size:13.5px; line-height:1.55;">
+            Diagnostics · Repairs · Calibration · Firmware recovery
+          </p>
+        </div>
       </div>
     </section>
 
     <section class="formBlock" id="request">
       <div class="formInner">
-        <div class="formTitle">
-          <b>Start a repair request</b>
-          <span>Submit the basics. We’ll reply with next steps and a triage slot.</span>
-          <span class="hint">Prefer email? service@robotrepair.co</span>
+        <div class="formTitle" id="how">
+          <b>Get repair</b>
+          <span>Describe the issue. We respond with next steps.</span>
         </div>
 
         <form id="requestForm" autocomplete="on">
-          <div class="row">
-            <div>
-              <label for="name">Name</label>
-              <input id="name" name="name" placeholder="Your name" />
-            </div>
-            <div>
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" placeholder="you@domain.com" />
-            </div>
-          </div>
-
-          <div class="row">
-            <div>
-              <label for="type">Robot type</label>
-              <select id="type" name="type">
-                <option>Humanoid</option>
-                <option>Robot vacuum</option>
-                <option>Companion bot</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div>
-              <label for="model">Model</label>
-              <input id="model" name="model" placeholder="Optional" />
-            </div>
-          </div>
-
           <div>
             <label for="issue">Issue</label>
-            <textarea id="issue" name="issue" placeholder="Symptoms, error codes, when it started, what changed…"></textarea>
+            <textarea id="issue" name="issue" placeholder="Symptoms, error codes, when it started…"></textarea>
           </div>
 
-          <div class="formActions">
+          <div class="ctaRow" style="justify-content:flex-start;">
             <button class="btn primary" type="submit">Open email</button>
-            <button class="btn" id="copyBtn" type="button">Copy details</button>
+            <button class="btn" id="copyBtn" type="button">Copy</button>
           </div>
 
-          <div class="hint" id="how">How it works: Request → Triage → Quote → Repair → Verification</div>
+          <div class="mini" style="margin-top:6px;">service@robotrepair.co · Mon–Fri 9–5</div>
         </form>
       </div>
     </section>
 
     <footer>
-      <div>© <span id="year"></span> Robot Repair Co. - A service of IRL Robotics™</div>
-      <div>Mon–Fri · 9–5 · <a href="mailto:service@robotrepair.co">service@robotrepair.co</a></div>
+      <div>© <span id="year"></span> Robot Repair Co.</div>
+      <div><a href="mailto:service@robotrepair.co">service@robotrepair.co</a></div>
     </footer>
   </main>
 
@@ -679,44 +631,82 @@
 
       $("#year").textContent = new Date().getFullYear();
 
+      // Menu
+      const menuBtn = $("#menuBtn");
+      const menuPanel = $("#menuPanel");
+
+      function closeMenu(){
+        menuBtn.setAttribute("aria-expanded", "false");
+        menuPanel.classList.remove("open");
+      }
+      function toggleMenu(){
+        const open = menuBtn.getAttribute("aria-expanded") === "true";
+        if (open) closeMenu();
+        else{
+          menuBtn.setAttribute("aria-expanded", "true");
+          menuPanel.classList.add("open");
+        }
+      }
+
+      menuBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleMenu();
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!menuPanel.classList.contains("open")) return;
+        const inside = e.target.closest("#menuPanel") || e.target.closest("#menuBtn");
+        if (!inside) closeMenu();
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeMenu();
+      });
+
+      // Smooth anchors + close menu
+      document.addEventListener("click", (e) => {
+        const a = e.target.closest('a[href^="#"]');
+        if (!a) return;
+        const id = a.getAttribute("href");
+        const el = id && id.length > 1 ? document.querySelector(id) : null;
+        if (!el) return;
+        e.preventDefault();
+        closeMenu();
+        el.scrollIntoView({ behavior:"smooth", block:"start" });
+        history.replaceState(null, "", id);
+      });
+
+      // Toast
       const toastEl = $("#toast");
       let toastTimer = null;
-
       function toast(msg){
         toastEl.textContent = msg;
         toastEl.classList.add("show");
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => toastEl.classList.remove("show"), 1700);
+        toastTimer = setTimeout(() => toastEl.classList.remove("show"), 1600);
       }
 
-      function buildBody(d){
+      $("#pricingBtn").addEventListener("click", () => {
+        toast("Diagnostics $95 · Labor $120–$150/hr · Parts at cost");
+      });
+
+      function buildBody(issue){
         const stamp = new Date().toLocaleString();
         return [
           `REPAIR REQUEST — Robot Repair Co.`,
           `Timestamp: ${stamp}`,
           ``,
-          `Name: ${d.name || "-"}`,
-          `Email: ${d.email || "-"}`,
-          `Robot type: ${d.type || "-"}`,
-          `Model: ${d.model || "-"}`,
-          ``,
-          `Issue:`,
-          d.issue || "-",
+          `Home robot issue:`,
+          issue || "-",
           ``,
           `—`
         ].join("\n");
       }
 
       function openEmail(){
-        const d = {
-          name: $("#name").value.trim(),
-          email: $("#email").value.trim(),
-          type: $("#type").value,
-          model: $("#model").value.trim(),
-          issue: $("#issue").value.trim()
-        };
-        const subject = `Robot repair request — ${d.model || d.type || "Home robot"}`;
-        const body = buildBody(d);
+        const issue = $("#issue").value.trim();
+        const subject = `Robot repair request — ${issue ? issue.slice(0, 64) : "Home robot"}`;
+        const body = buildBody(issue);
         window.location.href =
           `mailto:service@robotrepair.co?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       }
@@ -727,14 +717,7 @@
       });
 
       $("#copyBtn").addEventListener("click", async () => {
-        const d = {
-          name: $("#name").value.trim(),
-          email: $("#email").value.trim(),
-          type: $("#type").value,
-          model: $("#model").value.trim(),
-          issue: $("#issue").value.trim()
-        };
-        const text = buildBody(d);
+        const text = buildBody($("#issue").value.trim());
         try{
           await navigator.clipboard.writeText(text);
           toast("Copied.");
@@ -749,21 +732,7 @@
         }
       });
 
-      $("#pricingBtn").addEventListener("click", () => {
-        toast("Diagnostics $95 · Labor $120–$150/hr · Parts at cost");
-      });
-
-      document.addEventListener("click", (e) => {
-        const a = e.target.closest('a[href^="#"]');
-        if (!a) return;
-        const id = a.getAttribute("href");
-        const el = id && id.length > 1 ? document.querySelector(id) : null;
-        if (!el) return;
-        e.preventDefault();
-        el.scrollIntoView({ behavior:"smooth", block:"start" });
-        history.replaceState(null, "", id);
-      });
-
+      // Particles
       const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const canvas = document.getElementById("dust");
       if (!canvas || prefersReduced) return;
@@ -778,12 +747,12 @@
         canvas.style.width = "100%";
         canvas.style.height = "100%";
 
-        const density = (window.innerWidth * window.innerHeight) / 42000;
-        const n = Math.max(18, Math.min(80, Math.floor(density)));
+        const density = (window.innerWidth * window.innerHeight) / 48000;
+        const n = Math.max(16, Math.min(70, Math.floor(density)));
         particles = new Array(n).fill(0).map(() => ({
           x: Math.random()*w,
           y: Math.random()*h,
-          r: (Math.random()*1.15 + 0.55) * dpr,
+          r: (Math.random()*1.05 + 0.55) * dpr,
           vx: (Math.random()*0.10 + 0.02) * dpr,
           vy: (Math.random()*0.12 + 0.03) * dpr,
           a: Math.random()*0.20 + 0.06
