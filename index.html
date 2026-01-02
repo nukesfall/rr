@@ -85,6 +85,14 @@
       #dust{ display:none; }
     }
 
+    /* ====== UNIFORM WIDTH WRAPPER (top bar, content, footer) ====== */
+    .shell{
+      width:min(880px, calc(100% - 40px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
     header{
       position:sticky;
       top:0;
@@ -93,9 +101,9 @@
       backdrop-filter: blur(10px);
     }
 
+    /* Top bar now uses the SAME .shell width as footer + content */
     .barWrap{
-      width:min(var(--max), calc(100% - 40px));
-      margin: 14px auto 0;
+      margin-top: 14px;
       border-radius: 16px;
       border: 1px solid rgba(11,18,32,.08);
       background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.42));
@@ -224,9 +232,7 @@
       font-weight: 600;
     }
 
-    .wrap{
-      width:min(880px, calc(100% - 40px));
-      margin: 0 auto;
+    main{
       padding: 18px 0 64px;
       position:relative;
       z-index:2;
@@ -464,8 +470,9 @@
     }
 
     @media (max-width: 560px){
-      .barWrap{ width: calc(100% - 24px); margin-top: 10px; }
-      .wrap{ width: calc(100% - 24px); }
+      :root{ --radius: 16px; }
+      .shell{ width: calc(100% - 24px); }
+      .barWrap{ margin-top: 10px; }
       .bar{ height: 58px; padding: 0 10px; }
       .heroInner{ padding: 18px 14px; }
     }
@@ -477,29 +484,31 @@
   <div class="grain" aria-hidden="true"></div>
 
   <header>
-    <div class="barWrap">
-      <div class="bar">
-        <div class="brand">
-          <div class="mark" aria-hidden="true"></div>
-          <div class="brandText">Robot Repair Co.</div>
-        </div>
+    <div class="shell">
+      <div class="barWrap">
+        <div class="bar">
+          <div class="brand">
+            <div class="mark" aria-hidden="true"></div>
+            <div class="brandText">Robot Repair Co.</div>
+          </div>
 
-        <button class="menuBtn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menuPanel" aria-label="Open menu">
-          <span class="burger" aria-hidden="true"><i></i><i></i><i></i></span>
-          Menu
-        </button>
+          <button class="menuBtn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menuPanel" aria-label="Open menu">
+            <span class="burger" aria-hidden="true"><i></i><i></i><i></i></span>
+            Menu
+          </button>
 
-        <div class="menuPanel" id="menuPanel" role="dialog" aria-label="Menu">
-          <a href="#services"><span>Services</span><span class="meta">What we fix</span></a>
-          <a href="#how"><span>How it works</span><span class="meta">Steps</span></a>
-          <a href="#request"><span>Get repair</span><span class="meta">Request</span></a>
-          <a href="mailto:service@robotrepair.co"><span>Email</span><span class="meta">service@robotrepair.co</span></a>
+          <div class="menuPanel" id="menuPanel" role="dialog" aria-label="Menu">
+            <a href="#services"><span>Services</span><span class="meta">What we fix</span></a>
+            <a href="#how"><span>How it works</span><span class="meta">Steps</span></a>
+            <a href="#request"><span>Get repair</span><span class="meta">Request</span></a>
+            <a href="mailto:service@robotrepair.co"><span>Email</span><span class="meta">service@robotrepair.co</span></a>
+          </div>
         </div>
       </div>
     </div>
   </header>
 
-  <main class="wrap">
+  <main class="shell">
     <section class="hero" id="top">
       <div class="heroInner">
         <div>
@@ -542,39 +551,26 @@
                 </filter>
               </defs>
 
-              <path d="M455 120
-                       C520 120, 580 180, 580 250
-                       C580 340, 520 395, 455 410
-                       C470 385, 482 350, 482 300
-                       C482 215, 450 160, 420 130
+              <path d="M455 120 C520 120, 580 180, 580 250 C580 340, 520 395, 455 410
+                       C470 385, 482 350, 482 300 C482 215, 450 160, 420 130
                        C432 124, 444 120, 455 120Z"
                     fill="url(#shell)" opacity=".88" stroke="rgba(11,18,32,.08)" stroke-width="2"/>
 
-              <path d="M345 120
-                       C280 120, 220 180, 220 250
-                       C220 340, 280 395, 345 410
-                       C330 385, 318 350, 318 300
-                       C318 215, 350 160, 380 130
+              <path d="M345 120 C280 120, 220 180, 220 250 C220 340, 280 395, 345 410
+                       C330 385, 318 350, 318 300 C318 215, 350 160, 380 130
                        C368 124, 356 120, 345 120Z"
                     fill="url(#shell)" opacity=".88" stroke="rgba(11,18,32,.08)" stroke-width="2"/>
 
-              <path d="M400 130
-                       C450 130, 495 175, 495 235
-                       C495 320, 455 368, 400 382
-                       C345 368, 305 320, 305 235
-                       C305 175, 350 130, 400 130Z"
+              <path d="M400 130 C450 130, 495 175, 495 235 C495 320, 455 368, 400 382
+                       C345 368, 305 320, 305 235 C305 175, 350 130, 400 130Z"
                     fill="url(#visor)" opacity=".92" stroke="rgba(255,255,255,.10)" stroke-width="2"/>
 
               <circle cx="400" cy="250" r="96" fill="url(#orb)" filter="url(#soft)" opacity=".86"/>
               <circle cx="400" cy="250" r="30" fill="rgba(255,255,255,.18)" opacity=".55"/>
 
-              <path d="M400 382
-                       C448 388, 505 425, 522 478
-                       C530 502, 520 520, 495 532
-                       C468 545, 438 536, 400 530
-                       C362 536, 332 545, 305 532
-                       C280 520, 270 502, 278 478
-                       C295 425, 352 388, 400 382Z"
+              <path d="M400 382 C448 388, 505 425, 522 478 C530 502, 520 520, 495 532
+                       C468 545, 438 536, 400 530 C362 536, 332 545, 305 532
+                       C280 520, 270 502, 278 478 C295 425, 352 388, 400 382Z"
                     fill="url(#shell)" opacity=".70" stroke="rgba(11,18,32,.08)" stroke-width="2"/>
             </svg>
           </div>
@@ -582,7 +578,6 @@
       </div>
     </section>
 
-    <!-- kept minimal but still real: two tiny info blocks -->
     <section class="hero" id="services" style="margin-top:12px;">
       <div class="heroInner" style="grid-template-columns:1fr; padding:16px;">
         <div>
@@ -700,7 +695,7 @@
           issue || "-",
           ``,
           `—`
-        ].join("\n");
+        ].join("\\n");
       }
 
       function openEmail(){
