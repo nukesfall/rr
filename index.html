@@ -3,31 +3,35 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="color-scheme" content="dark" />
-  <title>Robot Repair Co.</title>
+  <meta name="color-scheme" content="light" />
+  <title>Robot Repair™</title>
+
   <style>
     :root{
-      --bg0:#0a0c10;
-      --bg1:#07090c;
+      --bg0:#f7f8fb;
+      --bg1:#eef2f8;
 
-      --ink:rgba(245,248,255,.92);
-      --muted:rgba(245,248,255,.58);
+      --ink:#0b1220;
+      --muted: rgba(11,18,32,.62);
 
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.035);
-      --line: rgba(255,255,255,.10);
-      --line2: rgba(255,255,255,.075);
+      --card: rgba(255,255,255,.74);
+      --card2: rgba(255,255,255,.58);
+      --line: rgba(11,18,32,.10);
+      --line2: rgba(11,18,32,.07);
 
-      --shadow: 0 18px 56px rgba(0,0,0,.45);
-      --shadow2: 0 12px 34px rgba(0,0,0,.36);
+      --shadow: 0 28px 70px rgba(15,26,50,.10);
+      --shadow2: 0 14px 38px rgba(15,26,50,.08);
 
-      --r: 999px;
-      --focus: rgba(255,255,255,.10);
+      --radius: 18px;
+      --pill: 999px;
 
-      --max: 980px;
+      --max: 1120px;
+      --focus: 0 0 0 4px rgba(65,120,255,.18);
 
-      --topH: 56px;
-      --footH: 66px;
+      --accentA: #5a7cff;
+      --accentB: #7d5cff;
+      --accentC: #ff5fb7;
+      --accentD: #46d6ff;
     }
 
     *{ box-sizing:border-box; }
@@ -35,8 +39,9 @@
 
     html{
       background:
-        radial-gradient(900px 640px at 68% 12%, rgba(255,255,255,.06), transparent 62%),
-        radial-gradient(900px 640px at 20% 12%, rgba(255,255,255,.03), transparent 64%),
+        radial-gradient(1200px 800px at 48% -10%, rgba(90,124,255,.22), transparent 58%),
+        radial-gradient(1100px 760px at 18% 18%, rgba(255,95,183,.16), transparent 60%),
+        radial-gradient(1200px 820px at 82% 26%, rgba(70,214,255,.14), transparent 62%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
       background-attachment: fixed;
       background-repeat:no-repeat;
@@ -47,36 +52,25 @@
       margin:0;
       color:var(--ink);
       background:transparent;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
-      letter-spacing:.08px;
-      font-weight: 340;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI Variable", "Segoe UI", Roboto, Helvetica, Arial;
+      letter-spacing:.1px;
       text-rendering: geometricPrecision;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       overflow-x:hidden;
     }
 
-    @supports (font-variation-settings: normal){
-      body{
-        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI Variable", "Segoe UI", Roboto, Helvetica, Arial;
-        font-variation-settings: "wght" 340;
-      }
-    }
+    a{ color:inherit; text-decoration:none; }
+    a:hover{ text-decoration:underline; }
 
-    .triGrid{
+    .grain{
       position:fixed;
       inset:0;
       pointer-events:none;
-      z-index:-9;
-      opacity:.07;
-      background:
-        linear-gradient(60deg, rgba(255,255,255,.10) 1px, transparent 1px) 0 0/64px 64px,
-        linear-gradient(-60deg, rgba(255,255,255,.10) 1px, transparent 1px) 0 0/64px 64px,
-        linear-gradient(0deg, rgba(255,255,255,.06) 1px, transparent 1px) 0 0/64px 64px;
-      mix-blend-mode: screen;
-      filter: blur(.15px);
-      mask-image: radial-gradient(920px 720px at 50% 16%, rgba(0,0,0,1), rgba(0,0,0,.30) 62%, rgba(0,0,0,0) 100%);
-      -webkit-mask-image: radial-gradient(920px 720px at 50% 16%, rgba(0,0,0,1), rgba(0,0,0,.30) 62%, rgba(0,0,0,0) 100%);
+      z-index:2;
+      opacity:.06;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
     }
 
     #dust{
@@ -85,252 +79,396 @@
       width:100%;
       height:100%;
       pointer-events:none;
-      z-index:-8;
-      opacity:.50;
-    }
-
-    .vignette{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:-7;
-      background:
-        radial-gradient(1200px 900px at 50% 12%, rgba(0,0,0,0), rgba(0,0,0,.42) 70%, rgba(0,0,0,.70) 100%);
-    }
-
-    .grain{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:50;
-      opacity:.04;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
+      z-index:1;
+      opacity:.55;
     }
 
     @media (prefers-reduced-motion: reduce){
       #dust{ display:none; }
     }
 
-    a{ color:inherit; text-decoration:none; }
-    a:hover{ text-decoration:none; opacity:.9; }
-
-    .top{
-      position:fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: var(--topH);
-      z-index: 10;
-      display:flex;
-      justify-content:center;
-      pointer-events:none;
+    header{
+      position:sticky;
+      top:0;
+      z-index:10;
+      background: transparent;
+      backdrop-filter: blur(10px);
     }
-    .topInner{
-      width:min(var(--max), calc(100% - 36px));
-      height:100%;
+
+    .barWrap{
+      width:min(var(--max), calc(100% - 40px));
+      margin: 14px auto 0;
+      border-radius: 16px;
+      border: 1px solid rgba(11,18,32,.08);
+      background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.42));
+      box-shadow: 0 10px 30px rgba(15,26,50,.06);
+    }
+
+    .bar{
+      height:62px;
+      padding: 0 14px;
       display:flex;
+      align-items:center;
       justify-content:space-between;
-      align-items:center;
-      pointer-events:auto;
-      color: rgba(245,248,255,.72);
-      font-size: 12.5px;
+      gap:14px;
     }
+
     .brand{
-      font-weight: 520;
-      letter-spacing:.18px;
-    }
-    .topLinks{
-      display:flex;
-      gap: 14px;
-      align-items:center;
-    }
-    .topLink{
-      color: rgba(245,248,255,.60);
-    }
-    .topLink:hover{ color: rgba(245,248,255,.88); }
-
-    .page{
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      padding: calc(var(--topH) + 22px) 18px calc(var(--footH) + 22px);
-      position:relative;
-      z-index:1;
-    }
-
-    .center{
-      width:min(720px, 100%);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap: 14px;
-      transform: translateY(-6px);
-    }
-
-    .logo{
-      font-size: clamp(44px, 6vw, 78px);
-      line-height:1;
-      letter-spacing: -1.0px;
-      user-select:none;
-      font-weight: 560;
-      text-shadow: 0 22px 60px rgba(0,0,0,.50);
-    }
-
-    .searchWrap{
-      width:100%;
-      display:flex;
-      justify-content:center;
-      margin-top: 6px;
-    }
-
-    .search{
-      width:min(680px, 100%);
-      background: linear-gradient(180deg, var(--card), var(--card2));
-      border: 1px solid var(--line2);
-      border-radius: var(--r);
-      box-shadow: var(--shadow2);
+      font-weight: 720;
+      letter-spacing:-.3px;
+      white-space:nowrap;
       display:flex;
       align-items:center;
-      gap: 10px;
-      padding: 10px 12px;
-      backdrop-filter: blur(14px);
+      gap:10px;
     }
-
-    .icon{
-      width: 18px;
-      height: 18px;
-      border-radius: 6px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size: 12px;
-      color: rgba(245,248,255,.62);
-      user-select:none;
+    .mark{
+      width:26px; height:26px;
+      border-radius: 10px;
+      background:
+        radial-gradient(12px 12px at 35% 35%, rgba(255,255,255,.95), rgba(255,255,255,0) 65%),
+        linear-gradient(135deg, rgba(90,124,255,.95), rgba(125,92,255,.85), rgba(255,95,183,.75));
+      box-shadow: 0 12px 26px rgba(90,124,255,.18);
+      border: 1px solid rgba(11,18,32,.10);
       flex: 0 0 auto;
     }
-
-    input{
-      width:100%;
-      border: none;
-      outline:none;
-      background: transparent;
-      font: inherit;
-      font-size: 15px;
-      color: rgba(245,248,255,.92);
-      letter-spacing:.08px;
-      padding: 8px 6px;
-      font-weight: 340;
-    }
-    input::placeholder{ color: rgba(245,248,255,.42); }
-
-    .search:focus-within{
-      border-color: rgba(255,255,255,.18);
-      box-shadow: 0 0 0 4px var(--focus), var(--shadow2);
+    .brand span{
+      font-size: 14px;
     }
 
-    .actions{
+    nav{
       display:flex;
       gap: 10px;
-      justify-content:center;
+      align-items:center;
       flex-wrap:wrap;
-      margin-top: 6px;
+      justify-content:flex-end;
+    }
+
+    .navlink{
+      font-size: 13px;
+      color: rgba(11,18,32,.68);
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      transition: background .14s ease, border-color .14s ease, color .14s ease;
+      white-space:nowrap;
+    }
+    .navlink:hover{
+      text-decoration:none;
+      background: rgba(255,255,255,.55);
+      border-color: rgba(11,18,32,.08);
+      color: rgba(11,18,32,.92);
+    }
+
+    .wrap{
+      width:min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 18px 0 70px;
+      position:relative;
+      z-index:3;
+    }
+
+    .hero{
+      margin-top: 18px;
+      border-radius: 26px;
+      border: 1px solid rgba(11,18,32,.08);
+      background:
+        radial-gradient(900px 560px at 20% 0%, rgba(90,124,255,.16), transparent 62%),
+        radial-gradient(900px 560px at 84% 12%, rgba(255,95,183,.12), transparent 64%),
+        linear-gradient(180deg, rgba(255,255,255,.74), rgba(255,255,255,.46));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .heroInner{
+      padding: 28px 22px;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      align-items:center;
+    }
+
+    @media (max-width: 980px){
+      .heroInner{ grid-template-columns: 1fr; }
+    }
+
+    h1{
+      margin:0;
+      font-size: clamp(34px, 4.4vw, 56px);
+      line-height: 1.06;
+      letter-spacing: -1.0px;
+      font-weight: 780;
+    }
+
+    .lead{
+      margin: 10px 0 0;
+      color: rgba(11,18,32,.66);
+      line-height: 1.55;
+      font-size: 15px;
+      max-width: 62ch;
+    }
+
+    .chips{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-top: 14px;
+    }
+    .chip{
+      font-size: 12px;
+      color: rgba(11,18,32,.62);
+      border: 1px solid rgba(11,18,32,.10);
+      background: rgba(255,255,255,.58);
+      padding: 7px 10px;
+      border-radius: var(--pill);
+      letter-spacing:.18px;
+      text-transform: uppercase;
+    }
+
+    .ctaRow{
+      margin-top: 16px;
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      align-items:center;
     }
 
     .btn{
-      padding: 10px 14px;
-      border-radius: var(--r);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      box-shadow: 0 10px 26px rgba(0,0,0,.26);
-      font-size: 12px;
-      letter-spacing: 1.0px;
-      text-transform: uppercase;
-      font-weight: 520;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(11,18,32,.12);
+      background: rgba(255,255,255,.70);
+      box-shadow: var(--shadow2);
       cursor:pointer;
-      transition: transform .14s ease, box-shadow .14s ease, background .14s ease, border-color .14s ease;
-      color: rgba(245,248,255,.88);
+      font-weight: 720;
+      font-size: 13px;
+      color: rgba(11,18,32,.92);
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
     }
     .btn:hover{
       transform: translateY(-1px);
-      background: rgba(255,255,255,.09);
-      border-color: rgba(255,255,255,.16);
-      box-shadow: 0 16px 40px rgba(0,0,0,.34);
+      background: rgba(255,255,255,.84);
+      border-color: rgba(11,18,32,.16);
+      box-shadow: 0 18px 48px rgba(15,26,50,.10);
+    }
+    .btn.primary{
+      border-color: rgba(90,124,255,.22);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.84), rgba(255,255,255,.62));
+      position:relative;
+    }
+    .btn.primary::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      border-radius: 14px;
+      padding:1px;
+      background: linear-gradient(135deg, rgba(90,124,255,.55), rgba(125,92,255,.38), rgba(255,95,183,.30));
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events:none;
     }
 
-    .sub{
-      margin-top: 6px;
-      color: rgba(245,248,255,.52);
+    .mini{
+      color: rgba(11,18,32,.58);
+      font-size: 13px;
+      margin-top: 12px;
+    }
+
+    .heroArt{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height: 260px;
+    }
+
+    .artCard{
+      width: min(420px, 100%);
+      aspect-ratio: 16/12;
+      border-radius: 24px;
+      border: 1px solid rgba(11,18,32,.08);
+      background:
+        radial-gradient(220px 220px at 52% 52%, rgba(255,95,183,.18), rgba(255,95,183,0) 70%),
+        radial-gradient(260px 260px at 42% 42%, rgba(90,124,255,.18), rgba(90,124,255,0) 72%),
+        linear-gradient(180deg, rgba(255,255,255,.70), rgba(255,255,255,.44));
+      box-shadow: 0 24px 70px rgba(15,26,50,.10);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .softGlow{
+      position:absolute;
+      inset:-40%;
+      background:
+        radial-gradient(closest-side at 52% 52%, rgba(70,214,255,.18), rgba(70,214,255,0) 64%),
+        radial-gradient(closest-side at 60% 40%, rgba(255,95,183,.16), rgba(255,95,183,0) 66%),
+        radial-gradient(closest-side at 40% 34%, rgba(90,124,255,.18), rgba(90,124,255,0) 66%);
+      filter: blur(14px);
+      opacity:.85;
+    }
+
+    .artSvg{
+      position:absolute;
+      inset: 0;
+      width:100%;
+      height:100%;
+    }
+
+    .section{
+      margin-top: 16px;
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 980px){
+      .section{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border-radius: var(--radius);
+      border: 1px solid rgba(11,18,32,.08);
+      background: linear-gradient(180deg, rgba(255,255,255,.70), rgba(255,255,255,.46));
+      box-shadow: var(--shadow2);
+      padding: 16px;
+    }
+    .card h3{
+      margin:0 0 6px;
+      font-size: 14px;
+      letter-spacing:-.2px;
+      font-weight: 760;
+    }
+    .card p{
+      margin:0;
+      color: rgba(11,18,32,.62);
+      line-height: 1.55;
+      font-size: 13.5px;
+    }
+
+    .formBlock{
+      margin-top: 14px;
+      border-radius: 26px;
+      border: 1px solid rgba(11,18,32,.08);
+      background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.44));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .formInner{
+      padding: 18px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      align-items:start;
+    }
+
+    @media (max-width: 980px){
+      .formInner{ grid-template-columns: 1fr; }
+    }
+
+    .formTitle{
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+    }
+    .formTitle b{
+      font-size: 16px;
+      font-weight: 820;
+      letter-spacing:-.3px;
+    }
+    .formTitle span{
+      color: rgba(11,18,32,.62);
+      line-height: 1.5;
+      font-size: 13.5px;
+    }
+
+    form{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+
+    .row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 560px){
+      .row{ grid-template-columns: 1fr; }
+    }
+
+    label{
+      display:block;
+      font-size: 12px;
+      color: rgba(11,18,32,.64);
+      margin-bottom: 6px;
+    }
+
+    input, select, textarea{
+      width:100%;
+      border: 1px solid rgba(11,18,32,.12);
+      background: rgba(255,255,255,.78);
+      border-radius: 14px;
+      padding: 11px 12px;
+      font: inherit;
+      font-size: 14px;
+      color: rgba(11,18,32,.92);
+      outline:none;
+    }
+    textarea{ min-height: 104px; resize: vertical; }
+
+    input:focus, select:focus, textarea:focus{
+      box-shadow: var(--focus);
+      border-color: rgba(65,120,255,.30);
+    }
+
+    .formActions{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top: 2px;
+    }
+
+    .hint{
       font-size: 12.5px;
-      text-align:center;
-      line-height:1.5;
-      max-width: 60ch;
+      color: rgba(11,18,32,.58);
+      line-height: 1.45;
     }
 
     footer{
-      position:fixed;
-      left:0; right:0; bottom:0;
-      height: var(--footH);
-      padding: 14px 18px;
-      display:flex;
-      justify-content:center;
-      z-index: 10;
-      color: rgba(245,248,255,.54);
+      margin-top: 18px;
+      padding: 18px 0 10px;
+      border-top: 1px solid rgba(11,18,32,.08);
+      color: rgba(11,18,32,.62);
       font-size: 12.5px;
-      backdrop-filter: blur(10px);
-      background: rgba(10,12,16,.38);
-      border-top: 1px solid rgba(255,255,255,.08);
-    }
-    .footerInner{
-      width:min(var(--max), 100%);
       display:flex;
       justify-content:space-between;
-      gap: 12px;
+      gap:10px;
       flex-wrap:wrap;
-      align-items:center;
-    }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
-      color: rgba(245,248,255,.62);
-    }
-    .kbd{
-      display:inline-block;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      padding: 2px 10px;
-      border-radius: 999px;
-      font-size: 11.5px;
-      letter-spacing:.6px;
-      color: rgba(245,248,255,.72);
     }
 
     .toast{
       position: fixed;
-      bottom: calc(var(--footH) + 14px);
       left: 50%;
+      bottom: 18px;
       transform: translateX(-50%);
-      width: min(720px, calc(100% - 36px));
-      background: rgba(18,20,26,.72);
-      border: 1px solid rgba(255,255,255,.10);
+      width: min(var(--max), calc(100% - 40px));
+      background: rgba(11,18,32,.92);
+      color: rgba(255,255,255,.92);
+      border: 1px solid rgba(255,255,255,.12);
       border-radius: 14px;
       padding: 10px 12px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 50px rgba(0,0,0,.20);
       display:none;
-      z-index: 20;
-      color: rgba(245,248,255,.86);
+      z-index: 999;
       font-size: 13px;
-      line-height: 1.35;
     }
     .toast.show{ display:block; animation: pop .16s ease-out; }
     @keyframes pop{
@@ -341,53 +479,197 @@
 </head>
 
 <body>
-  <div class="triGrid" aria-hidden="true"></div>
   <canvas id="dust" aria-hidden="true"></canvas>
-  <div class="vignette" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
-  <div class="top">
-    <div class="topInner">
-      <div class="brand">Robot Repair Co.</div>
-      <div class="topLinks">
-        <a class="topLink" href="#" id="pricingLink">Pricing</a>
-        <a class="topLink" href="mailto:service@robotrepair.co">Contact</a>
+  <header>
+    <div class="barWrap">
+      <div class="bar">
+        <div class="brand">
+          <div class="mark" aria-hidden="true"></div>
+          <span>Robot Repair Co.</span>
+        </div>
+        <nav aria-label="Primary">
+          <a class="navlink" href="#services">Services</a>
+          <a class="navlink" href="#how">How it works</a>
+          <a class="navlink" href="#request">Get repair</a>
+          <a class="navlink" href="mailto:service@robotrepair.co">Email</a>
+        </nav>
       </div>
     </div>
-  </div>
+  </header>
 
-  <main class="page">
-    <div class="center">
-      <div class="logo" aria-label="Robot Repair">Robot Repair</div>
+  <main class="wrap">
+    <section class="hero" id="top">
+      <div class="heroInner">
+        <div>
+          <h1>Repair your home robot.</h1>
+          <p class="lead">
+            Repairs for humanoids, robot vacuums, and companion bots. Diagnostics, parts, calibration, and firmware recovery.
+          </p>
 
-      <div class="searchWrap">
-        <form class="search" id="quickForm" autocomplete="off">
-          <div class="icon" aria-hidden="true">⚙︎</div>
-          <input
-            id="q"
-            name="q"
-            placeholder="Describe the issue… (e.g., squeaks, drift, firmware loop)"
-            aria-label="Describe the issue"
-          />
-          <div class="icon" aria-hidden="true">↵</div>
+          <div class="chips" aria-label="Coverage">
+            <span class="chip">Humanoids</span>
+            <span class="chip">Robot vacuums</span>
+            <span class="chip">Companion bots</span>
+            <span class="chip">Assistive devices</span>
+          </div>
+
+          <div class="ctaRow">
+            <a class="btn primary" href="#request">Start repair request</a>
+            <button class="btn" id="pricingBtn" type="button">Pricing</button>
+            <a class="btn" href="#how">How it works</a>
+          </div>
+
+          <div class="mini">Mon–Fri · 9–5 · service@robotrepair.co</div>
+        </div>
+
+        <div class="heroArt" aria-hidden="true">
+          <div class="artCard">
+            <div class="softGlow"></div>
+            <svg class="artSvg" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="shell" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="rgba(255,255,255,.94)"/>
+                  <stop offset="1" stop-color="rgba(255,255,255,.46)"/>
+                </linearGradient>
+
+                <linearGradient id="visor" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="rgba(11,18,32,.92)"/>
+                  <stop offset="1" stop-color="rgba(11,18,32,.78)"/>
+                </linearGradient>
+
+                <radialGradient id="orb" cx="50%" cy="50%" r="60%">
+                  <stop offset="0" stop-color="rgba(70,214,255,.85)"/>
+                  <stop offset=".45" stop-color="rgba(125,92,255,.70)"/>
+                  <stop offset=".75" stop-color="rgba(255,95,183,.62)"/>
+                  <stop offset="1" stop-color="rgba(255,255,255,0)"/>
+                </radialGradient>
+
+                <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+                  <feGaussianBlur stdDeviation="8" result="b"/>
+                  <feMerge>
+                    <feMergeNode in="b"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <rect x="0" y="0" width="800" height="600" fill="transparent"/>
+
+              <g transform="translate(0,0)">
+                <path d="M455 120
+                         C520 120, 580 180, 580 250
+                         C580 340, 520 395, 455 410
+                         C470 385, 482 350, 482 300
+                         C482 215, 450 160, 420 130
+                         C432 124, 444 120, 455 120Z"
+                      fill="url(#shell)" opacity=".88" stroke="rgba(11,18,32,.08)" stroke-width="2"/>
+
+                <path d="M345 120
+                         C280 120, 220 180, 220 250
+                         C220 340, 280 395, 345 410
+                         C330 385, 318 350, 318 300
+                         C318 215, 350 160, 380 130
+                         C368 124, 356 120, 345 120Z"
+                      fill="url(#shell)" opacity=".88" stroke="rgba(11,18,32,.08)" stroke-width="2"/>
+
+                <path d="M400 130
+                         C450 130, 495 175, 495 235
+                         C495 320, 455 368, 400 382
+                         C345 368, 305 320, 305 235
+                         C305 175, 350 130, 400 130Z"
+                      fill="url(#visor)" opacity=".92" stroke="rgba(255,255,255,.10)" stroke-width="2"/>
+
+                <circle cx="400" cy="250" r="96" fill="url(#orb)" filter="url(#soft)" opacity=".86"/>
+                <circle cx="400" cy="250" r="30" fill="rgba(255,255,255,.18)" opacity=".55"/>
+
+                <path d="M400 382
+                         C448 388, 505 425, 522 478
+                         C530 502, 520 520, 495 532
+                         C468 545, 438 536, 400 530
+                         C362 536, 332 545, 305 532
+                         C280 520, 270 502, 278 478
+                         C295 425, 352 388, 400 382Z"
+                      fill="url(#shell)" opacity=".70" stroke="rgba(11,18,32,.08)" stroke-width="2"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="card">
+        <h3>Diagnostics</h3>
+        <p>Power, motors, sensors, logs, connectivity, safety checks.</p>
+      </div>
+      <div class="card">
+        <h3>Repairs</h3>
+        <p>Parts replacement, alignment, cleaning, mechanical service.</p>
+      </div>
+      <div class="card">
+        <h3>Calibration & firmware</h3>
+        <p>Sensor calibration, firmware recovery, configuration restore.</p>
+      </div>
+    </section>
+
+    <section class="formBlock" id="request">
+      <div class="formInner">
+        <div class="formTitle">
+          <b>Start a repair request</b>
+          <span>Submit the basics. We’ll reply with next steps and a triage slot.</span>
+          <span class="hint">Prefer email? service@robotrepair.co</span>
+        </div>
+
+        <form id="requestForm" autocomplete="on">
+          <div class="row">
+            <div>
+              <label for="name">Name</label>
+              <input id="name" name="name" placeholder="Your name" />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@domain.com" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="type">Robot type</label>
+              <select id="type" name="type">
+                <option>Humanoid</option>
+                <option>Robot vacuum</option>
+                <option>Companion bot</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div>
+              <label for="model">Model</label>
+              <input id="model" name="model" placeholder="Optional" />
+            </div>
+          </div>
+
+          <div>
+            <label for="issue">Issue</label>
+            <textarea id="issue" name="issue" placeholder="Symptoms, error codes, when it started, what changed…"></textarea>
+          </div>
+
+          <div class="formActions">
+            <button class="btn primary" type="submit">Open email</button>
+            <button class="btn" id="copyBtn" type="button">Copy details</button>
+          </div>
+
+          <div class="hint" id="how">How it works: Request → Triage → Quote → Repair → Verification</div>
         </form>
       </div>
+    </section>
 
-      <div class="actions">
-        <button class="btn" id="requestBtn" type="button">Request repair</button>
-        <button class="btn" id="copyBtn" type="button">Copy details</button>
-      </div>
-
-      <div class="sub">A service of IRL Robotics™</div>
-    </div>
+    <footer>
+      <div>© <span id="year"></span> Robot Repair Co. - A service of IRL Robotics™</div>
+      <div>Mon–Fri · 9–5 · <a href="mailto:service@robotrepair.co">service@robotrepair.co</a></div>
+    </footer>
   </main>
-
-  <footer>
-    <div class="footerInner">
-      <span>© <span id="year"></span> Robot Repair Co.</span>
-      <span class="pill">Tip: press <span class="kbd">/</span> to focus</span>
-    </div>
-  </footer>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -397,7 +679,6 @@
 
       $("#year").textContent = new Date().getFullYear();
 
-      const q = $("#q");
       const toastEl = $("#toast");
       let toastTimer = null;
 
@@ -405,32 +686,55 @@
         toastEl.textContent = msg;
         toastEl.classList.add("show");
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => toastEl.classList.remove("show"), 1600);
+        toastTimer = setTimeout(() => toastEl.classList.remove("show"), 1700);
       }
 
-      function buildBody(text){
+      function buildBody(d){
         const stamp = new Date().toLocaleString();
         return [
           `REPAIR REQUEST — Robot Repair Co.`,
           `Timestamp: ${stamp}`,
           ``,
-          `Issue:`,
-          text || "-",
+          `Name: ${d.name || "-"}`,
+          `Email: ${d.email || "-"}`,
+          `Robot type: ${d.type || "-"}`,
+          `Model: ${d.model || "-"}`,
           ``,
-          `Reply to:`
+          `Issue:`,
+          d.issue || "-",
+          ``,
+          `—`
         ].join("\n");
       }
 
       function openEmail(){
-        const text = q.value.trim();
-        const subject = `Repair request — ${text ? text.slice(0, 64) : "Robot"}`;
-        const body = buildBody(text);
+        const d = {
+          name: $("#name").value.trim(),
+          email: $("#email").value.trim(),
+          type: $("#type").value,
+          model: $("#model").value.trim(),
+          issue: $("#issue").value.trim()
+        };
+        const subject = `Robot repair request — ${d.model || d.type || "Home robot"}`;
+        const body = buildBody(d);
         window.location.href =
           `mailto:service@robotrepair.co?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       }
 
-      async function copyDetails(){
-        const text = buildBody(q.value.trim());
+      $("#requestForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        openEmail();
+      });
+
+      $("#copyBtn").addEventListener("click", async () => {
+        const d = {
+          name: $("#name").value.trim(),
+          email: $("#email").value.trim(),
+          type: $("#type").value,
+          model: $("#model").value.trim(),
+          issue: $("#issue").value.trim()
+        };
+        const text = buildBody(d);
         try{
           await navigator.clipboard.writeText(text);
           toast("Copied.");
@@ -443,37 +747,28 @@
           ta.remove();
           toast("Copied.");
         }
-      }
-
-      $("#quickForm").addEventListener("submit", (e) => {
-        e.preventDefault();
-        openEmail();
       });
 
-      $("#requestBtn").addEventListener("click", openEmail);
-      $("#copyBtn").addEventListener("click", copyDetails);
-
-      $("#pricingLink").addEventListener("click", (e) => {
-        e.preventDefault();
-        toast("Diagnostics $95 · Labor $120–$150/hr");
+      $("#pricingBtn").addEventListener("click", () => {
+        toast("Diagnostics $95 · Labor $120–$150/hr · Parts at cost");
       });
 
-      document.addEventListener("keydown", (e) => {
-        const tag = (document.activeElement && document.activeElement.tagName || "").toLowerCase();
-        const typing = tag === "input" || tag === "textarea" || tag === "select";
-        if (!typing && e.key === "/"){
-          e.preventDefault();
-          q.focus();
-          q.select?.();
-          toast("Type the issue.");
-        }
+      document.addEventListener("click", (e) => {
+        const a = e.target.closest('a[href^="#"]');
+        if (!a) return;
+        const id = a.getAttribute("href");
+        const el = id && id.length > 1 ? document.querySelector(id) : null;
+        if (!el) return;
+        e.preventDefault();
+        el.scrollIntoView({ behavior:"smooth", block:"start" });
+        history.replaceState(null, "", id);
       });
 
       const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const canvas = document.getElementById("dust");
       if (!canvas || prefersReduced) return;
 
-      const ctx = canvas.getContext("2d", { alpha: true });
+      const ctx = canvas.getContext("2d", { alpha:true });
       let w=0, h=0, dpr=1, particles=[];
 
       function resize(){
@@ -483,38 +778,29 @@
         canvas.style.width = "100%";
         canvas.style.height = "100%";
 
-        const count = Math.floor((window.innerWidth * window.innerHeight) / 36000);
-        const n = Math.max(18, Math.min(76, count));
-
+        const density = (window.innerWidth * window.innerHeight) / 42000;
+        const n = Math.max(18, Math.min(80, Math.floor(density)));
         particles = new Array(n).fill(0).map(() => ({
           x: Math.random()*w,
           y: Math.random()*h,
-          r: (Math.random()*1.25 + 0.55) * dpr,
-          vx: (Math.random()*0.10 + 0.03) * dpr,
-          vy: (Math.random()*0.12 + 0.04) * dpr,
-          a: Math.random()*0.16 + 0.04
+          r: (Math.random()*1.15 + 0.55) * dpr,
+          vx: (Math.random()*0.10 + 0.02) * dpr,
+          vy: (Math.random()*0.12 + 0.03) * dpr,
+          a: Math.random()*0.20 + 0.06
         }));
       }
 
       function step(){
         ctx.clearRect(0,0,w,h);
-
-        const g = ctx.createRadialGradient(w*0.52, h*0.12, 0, w*0.52, h*0.12, Math.max(w,h)*0.95);
-        g.addColorStop(0, "rgba(255,255,255,0.03)");
-        g.addColorStop(1, "rgba(0,0,0,0)");
-        ctx.fillStyle = g;
-        ctx.fillRect(0,0,w,h);
-
         for (const p of particles){
           p.x += p.vx;
           p.y += p.vy;
-
           if (p.x > w + 40) p.x = -40;
           if (p.y > h + 40) p.y = -40;
 
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-          ctx.fillStyle = `rgba(245,248,255,${p.a * 0.12})`;
+          ctx.fillStyle = `rgba(11,18,32,${p.a * 0.10})`;
           ctx.fill();
         }
         requestAnimationFrame(step);
