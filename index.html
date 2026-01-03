@@ -15,14 +15,12 @@
       --ink: rgba(246,248,255,.92);
       --muted: rgba(246,248,255,.58);
 
-      --hair: rgba(255,255,255,.08);
       --focus: 0 0 0 4px rgba(255,255,255,.10);
     }
 
     *{ box-sizing:border-box; }
     html, body{ height:100%; }
 
-    /* Luxury dark background (no “windows”) */
     html{
       background:
         radial-gradient(1200px 800px at 50% -10%, rgba(255,255,255,.10), transparent 60%),
@@ -133,13 +131,27 @@
       gap: 14px;
     }
 
+    /* Keep the CTA row a fixed “visual column” and match logo width to it */
+    .ctaRow{
+      width: min(520px, 100%);
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-top: 4px;
+    }
+
+    /* Smaller + truly centered (box-centered). If your PNG has uneven padding,
+       you must crop the PNG to the artwork bounds for perfect visual centering. */
     .logo{
-      width: min(640px, 92vw);
+      width: min(520px, 92vw);
+      max-width: 520px;
       height: auto;
       display:block;
       user-select:none;
       -webkit-user-drag:none;
       filter: drop-shadow(0 22px 70px rgba(0,0,0,.72));
+      margin: 0 auto;             /* ensure centered within container */
     }
 
     .tag{
@@ -148,15 +160,6 @@
       color: var(--muted);
       line-height: 1.55;
       max-width: 60ch;
-    }
-
-    /* Minimal CTA */
-    .ctaRow{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      justify-content:center;
-      margin-top: 4px;
     }
 
     .btn{
@@ -182,7 +185,6 @@
     }
     .btn:focus-visible{ outline:none; box-shadow: var(--focus); }
 
-    /* Footer: ultra minimal */
     footer{
       position: fixed;
       left: 0; right: 0; bottom: 0;
@@ -205,16 +207,6 @@
       padding-top: 12px;
     }
 
-    /* Hidden form (no windows): just jump + mailto */
-    .sr{
-      position:absolute !important;
-      width:1px; height:1px;
-      padding:0; margin:-1px;
-      overflow:hidden; clip:rect(0,0,0,0);
-      white-space:nowrap; border:0;
-    }
-
-    /* Tiny toast */
     .toast{
       position: fixed;
       left: 50%;
@@ -242,7 +234,8 @@
     @media (max-width: 560px){
       .top, .center, .foot{ width: calc(100% - 24px); }
       main{ padding-top: 84px; }
-      .logo{ width: min(560px, 94vw); }
+      .ctaRow{ width: min(420px, 100%); }
+      .logo{ width: min(420px, 90vw); max-width: 420px; }
     }
   </style>
 </head>
@@ -267,9 +260,6 @@
         <button class="btn" id="emailBtn" type="button">Get repair</button>
         <button class="btn" id="copyBtn" type="button">Copy email</button>
       </div>
-
-      <label class="sr" for="issue">Issue</label>
-      <textarea class="sr" id="issue"></textarea>
     </div>
   </main>
 
