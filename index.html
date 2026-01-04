@@ -2,383 +2,390 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="color-scheme" content="dark" />
-  <title>Robot Repair Co.</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Robot Repair Co</title>
   <style>
     :root{
-      --bg0:#05060a;
-      --bg1:#0a0d14;
-      --bg2:#090b12;
-
-      --ink: rgba(246,248,255,.92);
-      --muted: rgba(246,248,255,.58);
-
-      --focus: 0 0 0 4px rgba(255,255,255,.10);
+      --bg:#ffffff;
+      --ink:#0b0b0b;
+      --muted:#d9d9d9;
+      --pill:#e3e3e3;
+      --max: 1500px;
     }
 
-    *{ box-sizing:border-box; }
-    html, body{ height:100%; }
-
-    html{
-      background:
-        radial-gradient(1200px 800px at 50% -10%, rgba(255,255,255,.10), transparent 60%),
-        radial-gradient(900px 650px at 18% 20%, rgba(255,255,255,.05), transparent 62%),
-        radial-gradient(900px 650px at 82% 22%, rgba(255,255,255,.04), transparent 64%),
-        linear-gradient(180deg, var(--bg0), var(--bg1) 55%, var(--bg2));
-      background-attachment: fixed;
-      background-repeat:no-repeat;
-      background-size:cover;
-    }
-
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
+      background:var(--bg);
       color:var(--ink);
-      background:transparent;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI Variable", "Segoe UI", Roboto, Helvetica, Arial;
-      letter-spacing:.08px;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow-x:hidden;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
     }
 
     a{ color:inherit; text-decoration:none; }
-    a:hover{ text-decoration:underline; }
 
-    /* Subtle particles */
-    #dust{
-      position:fixed;
-      inset:0;
-      width:100%;
-      height:100%;
-      pointer-events:none;
-      z-index:0;
-      opacity:.50;
+    .page{
+      width:min(var(--max), 96vw);
+      margin:0 auto;
+      padding: 34px 20px 70px;
     }
 
-    /* Soft grain */
-    .grain{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:2;
-      opacity:.055;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
+    /* top-right icons */
+    .social{
+      display:flex;
+      justify-content:flex-end;
+      gap:18px;
+      align-items:center;
+      padding-top: 6px;
     }
+    .icon{
+      width:22px; height:22px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--ink);
+      opacity:0.9;
+      transition:opacity .12s ease, transform .12s ease;
+    }
+    .icon:hover{opacity:1; transform:translateY(-1px)}
+    .icon svg{width:100%; height:100%; fill:currentColor}
 
-    @media (prefers-reduced-motion: reduce){
-      #dust{ display:none; }
+    /* hero */
+    .hero{
+      margin-top: 92px;
+      display:flex;
+      justify-content:center;
     }
-
-    /* Top bar: minimal, floating */
-    header{
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 5;
-      pointer-events:none;
-    }
-    .top{
-      width: min(980px, calc(100% - 40px));
-      margin: 14px auto 0;
+    .pill{
+      width:min(1360px, 92vw);
+      background:var(--pill);
+      border-radius: 68px;
+      padding: 44px 54px;
       display:flex;
       align-items:center;
-      justify-content:space-between;
-      pointer-events:auto;
-      color: rgba(246,248,255,.70);
-      font-size: 13px;
-      letter-spacing: .2px;
+      gap: 46px;
     }
-    .brand{
-      font-weight: 720;
-      color: rgba(246,248,255,.78);
+
+    .brandWord{
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      font-size: clamp(34px, 4.4vw, 78px);
+      line-height: 0.95;
+      margin:0;
+      white-space:nowrap;
+      flex: 0 0 auto;
     }
-    .link{
-      color: rgba(246,248,255,.62);
-      padding: 8px 10px;
+
+    .heroCopy{
+      font-size: clamp(20px, 2.2vw, 40px);
+      line-height: 1.18;
+      font-weight: 500;
+      margin:0;
+      max-width: 760px;
+    }
+
+    /* divider */
+    .divider{
+      margin: 110px auto 0;
+      width: min(1460px, 96vw);
+      height: 6px;
+      background: var(--muted);
       border-radius: 999px;
-      border: 1px solid transparent;
-      background: transparent;
-      transition: border-color .14s ease, color .14s ease, background .14s ease, transform .14s ease;
-    }
-    .link:hover{
-      text-decoration:none;
-      color: rgba(246,248,255,.92);
-      border-color: rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      transform: translateY(-1px);
+      opacity: 0.95;
     }
 
-    /* Center */
-    main{
-      min-height:100%;
-      display:grid;
-      place-items:center;
-      padding: 92px 20px 64px;
-      position:relative;
-      z-index:1;
+    /* big centered caps headline */
+    .headline{
+      text-align:center;
+      margin-top: 88px;
+      font-weight: 500;
+      font-size: clamp(22px, 3.2vw, 44px);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      line-height: 1.25;
     }
 
-    .center{
-      width: min(980px, calc(100% - 40px));
+    /* lower section row */
+    .lowerRow{
+      margin-top: 74px;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap: 40px;
+      padding: 0 10px;
+    }
+    .lowerLeft, .lowerRight{
+      font-size: clamp(20px, 2.0vw, 34px);
+      font-weight: 700;
+      line-height: 1.15;
+    }
+    .lowerRight{ max-width: 620px; }
+
+    /* SIMPLE FORM */
+    .formWrap{
+      margin-top: 26px;
+      padding: 0 10px;
+      display:flex;
+      justify-content:flex-start;
+    }
+
+    .formCard{
+      width: min(740px, 100%);
+      border: 4px solid var(--muted);
+      border-radius: 18px;
+      padding: 18px;
+      background: #fff;
+    }
+
+    form{ margin:0; }
+
+    .row{
+      display:flex;
+      gap: 12px;
+      flex-wrap:wrap;
+      margin-bottom: 12px;
+    }
+
+    label{
+      display:block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    select, textarea, input[type="text"], input[type="email"]{
+      width: 100%;
+      border: 2px solid #cfcfcf;
+      border-radius: 12px;
+      padding: 12px 12px;
+      font-size: 16px;
+      outline:none;
+      background:#fff;
+    }
+    select:focus, textarea:focus, input[type="text"]:focus, input[type="email"]:focus{
+      border-color:#a9a9a9;
+    }
+
+    .col{
+      flex: 1 1 220px;
+      min-width: 220px;
+    }
+
+    textarea{
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .fileRow{
+      margin: 8px 0 14px;
       display:flex;
       flex-direction:column;
-      align-items:center;
-      text-align:center;
-      gap: 14px;
+      gap:8px;
     }
 
-    /* Keep the CTA row a fixed “visual column” and match logo width to it */
-    .ctaRow{
-      width: min(520px, 100%);
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      justify-content:center;
-      margin-top: 4px;
-    }
-
-    /* Smaller + truly centered (box-centered). If your PNG has uneven padding,
-       you must crop the PNG to the artwork bounds for perfect visual centering. */
-    .logo{
-      width: min(520px, 92vw);
-      max-width: 520px;
-      height: auto;
-      display:block;
-      user-select:none;
-      -webkit-user-drag:none;
-      filter: drop-shadow(0 22px 70px rgba(0,0,0,.72));
-      margin: 0 auto;             /* ensure centered within container */
-    }
-
-    .tag{
-      margin: 0;
-      font-size: clamp(14px, 2.2vw, 16px);
-      color: var(--muted);
-      line-height: 1.55;
-      max-width: 60ch;
+    input[type="file"]{
+      font-size: 14px;
     }
 
     .btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      padding: 12px 16px;
+      border: 3px solid #bfbfbf;
+      background:#fff;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      color: rgba(246,248,255,.90);
-      font-weight: 720;
-      font-size: 13px;
-      letter-spacing:.6px;
-      text-transform: uppercase;
+      padding: 12px 18px;
+      font-weight: 700;
+      font-size: 16px;
       cursor:pointer;
-      transition: transform .14s ease, background .14s ease, border-color .14s ease;
     }
-    .btn:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,.07);
-      border-color: rgba(255,255,255,.16);
-    }
-    .btn:focus-visible{ outline:none; box-shadow: var(--focus); }
+    .btn:hover{ filter: brightness(0.98); }
 
-    footer{
-      position: fixed;
-      left: 0; right: 0; bottom: 0;
-      padding: 14px 20px;
-      z-index: 5;
-      pointer-events:none;
-    }
-    .foot{
-      width: min(980px, calc(100% - 40px));
-      margin: 0 auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      flex-wrap:wrap;
-      pointer-events:auto;
-      color: rgba(246,248,255,.52);
-      font-size: 12.5px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding-top: 12px;
-    }
-
-    .toast{
-      position: fixed;
-      left: 50%;
-      bottom: 64px;
-      transform: translateX(-50%);
-      width: min(520px, calc(100% - 40px));
-      background: rgba(10,12,16,.80);
-      color: rgba(246,248,255,.92);
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 14px;
-      padding: 10px 12px;
-      display:none;
-      z-index: 999;
+    .fine{
+      margin-top: 10px;
       font-size: 13px;
+      color: #333;
+      opacity: 0.85;
       line-height: 1.35;
-      backdrop-filter: blur(14px);
-      box-shadow: 0 18px 50px rgba(0,0,0,.55);
-    }
-    .toast.show{ display:block; animation: pop .16s ease-out; }
-    @keyframes pop{
-      from{ transform: translateX(-50%) translateY(10px); opacity:0; }
-      to{ transform: translateX(-50%) translateY(0); opacity:1; }
     }
 
-    @media (max-width: 560px){
-      .top, .center, .foot{ width: calc(100% - 24px); }
-      main{ padding-top: 84px; }
-      .ctaRow{ width: min(420px, 100%); }
-      .logo{ width: min(420px, 90vw); max-width: 420px; }
+    /* FOOTER */
+    .footer{
+      margin-top: 70px;
+      border-top: 6px solid var(--muted);
+      padding: 22px 10px 0;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap: 18px;
+      flex-wrap:wrap;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .footer small{
+      font-weight: 600;
+      opacity: 0.8;
+    }
+
+    /* Mobile */
+    @media (max-width: 980px){
+      .pill{
+        flex-direction:column;
+        align-items:flex-start;
+        gap: 18px;
+        border-radius: 44px;
+        padding: 28px 22px;
+      }
+      .brandWord{
+        white-space:normal;
+        font-size: clamp(28px, 7vw, 44px);
+        line-height: 1.0;
+      }
+      .heroCopy{
+        font-size: clamp(18px, 5vw, 24px);
+        line-height: 1.25;
+      }
+      .divider{ margin-top: 72px; height: 5px; }
+      .headline{ margin-top: 56px; }
+
+      .lowerRow{
+        flex-direction:column;
+        gap: 14px;
+        margin-top: 44px;
+      }
+      .formWrap{ margin-top: 14px; }
+      .formCard{ border-width: 3px; }
+    }
+
+    @media (max-width: 420px){
+      .page{ padding: 26px 14px 62px; }
+      .social{ gap:14px; }
+      .icon{ width:20px; height:20px; }
+      .hero{ margin-top: 70px; }
+      .pill{ padding: 24px 18px; }
+      .formCard{ padding: 14px; }
+      .col{ min-width: 100%; }
     }
   </style>
 </head>
 
 <body>
-  <canvas id="dust" aria-hidden="true"></canvas>
-  <div class="grain" aria-hidden="true"></div>
-
-  <header>
-    <div class="top">
-      <div class="brand">Robot Repair Co.</div>
-      <a class="link" href="mailto:service@robotrepair.co">Contact</a>
+  <div class="page">
+    <!-- top right social icons -->
+    <div class="social" aria-label="Social links">
+      <a class="icon" href="#" aria-label="LinkedIn" title="LinkedIn">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5ZM.5 23.5h4V7.5h-4v16ZM8 7.5h3.8v2.2h.1c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1v9.9h-4v-8.8c0-2.1-.04-4.8-2.93-4.8-2.93 0-3.38 2.29-3.38 4.65v8.95H8v-16Z"/>
+        </svg>
+      </a>
+      <a class="icon" href="#" aria-label="Instagram" title="Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9A3.5 3.5 0 0 0 20 16.5v-9A3.5 3.5 0 0 0 16.5 4h-9ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm5.6-2.2a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z"/>
+        </svg>
+      </a>
+      <a class="icon" href="#" aria-label="X" title="X">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M18.9 2H22l-6.8 7.8L23 22h-6.7l-5.2-6.7L5.3 22H2l7.3-8.4L1 2h6.9l4.7 6.1L18.9 2Zm-1.2 18h1.7L7 3.9H5.2l12.5 16.1Z"/>
+        </svg>
+      </a>
+      <a class="icon" href="#" aria-label="YouTube" title="YouTube">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.7 4.6 12 4.6 12 4.6s-5.7 0-7.5.5A3 3 0 0 0 2.4 7.2 31.2 31.2 0 0 0 2 12a31.2 31.2 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5a3 3 0 0 0 2.1-2.1A31.2 31.2 0 0 0 22 12a31.2 31.2 0 0 0-.4-4.8ZM10 15.5v-7l6 3.5-6 3.5Z"/>
+        </svg>
+      </a>
     </div>
-  </header>
 
-  <main>
-    <div class="center">
-      <img class="logo" src="logo.png" alt="Robot Repair Co. logo" />
-      <p class="tag">Home robot repair for humanoids, vacuums, and companion bots.</p>
-
-      <div class="ctaRow">
-        <button class="btn" id="emailBtn" type="button">Get repair</button>
-        <button class="btn" id="copyBtn" type="button">Copy email</button>
+    <!-- big pill header -->
+    <div class="hero">
+      <div class="pill" role="region" aria-label="Hero">
+        <h1 class="brandWord">ROBOT REPAIR CO.</h1>
+        <p class="heroCopy">
+          We Repair and Maintain Home Robots —
+          Fast Turnarounds with Transparent Pricing
+        </p>
       </div>
     </div>
-  </main>
 
-  <footer>
-    <div class="foot">
-      <div>© <span id="year"></span> Robot Repair Co.</div>
-      <div><a class="link" style="padding:0;border:0;background:transparent" href="mailto:service@robotrepair.co">service@robotrepair.co</a></div>
+    <div class="divider" aria-hidden="true"></div>
+
+    <div class="headline">
+      BRING YOUR ROBOT BACK TO LIFE<br />
     </div>
-  </footer>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="lowerRow" id="request">
+      <div class="lowerLeft">Request a repair</div>
+      <div class="lowerRight">Tell us what’s wrong and we’ll reply with next steps.</div>
+    </div>
+
+    <!-- SIMPLE FORM -->
+    <div class="formWrap" aria-label="Repair request form">
+      <!-- NOTE: photo upload won't actually email/send anywhere without a backend.
+           If you want working uploads, I can wire this to Formspree / Netlify Forms / Firebase. -->
+      <div class="formCard">
+        <form id="repairForm">
+          <div class="row">
+            <div class="col">
+              <label for="robotType">Robot type</label>
+              <select id="robotType" name="robotType" required>
+                <option value="" selected disabled>Select…</option>
+                <option>Robot vacuum / mop</option>
+                <option>Robotic lawn mower</option>
+                <option>Companion / social robot</option>
+                <option>Humanoid / general-purpose</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="col">
+              <label for="email">Email (for reply)</label>
+              <input id="email" name="email" type="email" placeholder="you@domain.com" required />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col" style="flex:1 1 100%; min-width: 100%;">
+              <label for="details">Describe your repair need</label>
+              <textarea id="details" name="details" placeholder="Symptoms, error codes, noises, charging issues, what happened right before it broke…" required></textarea>
+            </div>
+          </div>
+
+          <div class="fileRow">
+            <label for="photo">Upload a photo (optional)</label>
+            <input id="photo" name="photo" type="file" accept="image/*" />
+          </div>
+
+          <button class="btn" type="submit">Submit</button>
+
+          <div class="fine">
+            Completely simple intake. We’ll reply by email.<br />
+            (To actually receive submissions + file uploads, connect this form to a service or backend.)
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer" role="contentinfo">
+      <div>Robot Repair Co.</div>
+      <small>By IRL Robotics™</small>
+    </div>
+  </div>
 
   <script>
-    (() => {
-      const $ = (s, r=document) => r.querySelector(s);
-
-      $("#year").textContent = new Date().getFullYear();
-
-      const toastEl = $("#toast");
-      let toastTimer = null;
-
-      function toast(msg){
-        toastEl.textContent = msg;
-        toastEl.classList.add("show");
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => toastEl.classList.remove("show"), 1700);
-      }
-
-      function buildBody(){
-        const stamp = new Date().toLocaleString();
-        return [
-          `REPAIR REQUEST — Robot Repair Co.`,
-          `Timestamp: ${stamp}`,
-          ``,
-          `Robot type:`,
-          `-`,
-          ``,
-          `Issue:`,
-          `-`,
-          ``,
-          `Contact:`,
-          `-`
-        ].join("\\n");
-      }
-
-      function openEmail(){
-        const subject = `Robot repair request`;
-        const body = buildBody();
-        window.location.href =
-          `mailto:service@robotrepair.co?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      }
-
-      $("#emailBtn").addEventListener("click", openEmail);
-
-      $("#copyBtn").addEventListener("click", async () => {
-        const text = "service@robotrepair.co";
-        try{
-          await navigator.clipboard.writeText(text);
-          toast("Copied.");
-        }catch{
-          const ta = document.createElement("textarea");
-          ta.value = text;
-          document.body.appendChild(ta);
-          ta.select();
-          document.execCommand("copy");
-          ta.remove();
-          toast("Copied.");
-        }
-      });
-
-      // Particles
-      const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const canvas = document.getElementById("dust");
-      if (!canvas || prefersReduced) return;
-
-      const ctx = canvas.getContext("2d", { alpha:true });
-      let w=0, h=0, dpr=1, particles=[];
-
-      function resize(){
-        dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
-        w = canvas.width = Math.floor(window.innerWidth * dpr);
-        h = canvas.height = Math.floor(window.innerHeight * dpr);
-        canvas.style.width = "100%";
-        canvas.style.height = "100%";
-
-        const density = (window.innerWidth * window.innerHeight) / 42000;
-        const n = Math.max(16, Math.min(70, Math.floor(density)));
-
-        particles = new Array(n).fill(0).map(() => ({
-          x: Math.random()*w,
-          y: Math.random()*h,
-          r: (Math.random()*1.15 + 0.55) * dpr,
-          vx: (Math.random()*0.10 + 0.02) * dpr,
-          vy: (Math.random()*0.12 + 0.03) * dpr,
-          a: Math.random()*0.20 + 0.06
-        }));
-      }
-
-      function step(){
-        ctx.clearRect(0,0,w,h);
-        for (const p of particles){
-          p.x += p.vx;
-          p.y += p.vy;
-
-          if (p.x > w + 40) p.x = -40;
-          if (p.y > h + 40) p.y = -40;
-
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-          ctx.fillStyle = `rgba(246,248,255,${p.a * 0.14})`;
-          ctx.fill();
-        }
-        requestAnimationFrame(step);
-      }
-
-      window.addEventListener("resize", resize, { passive:true });
-      resize();
-      step();
-    })();
+    // Simple no-backend demo submit behavior (doesn't upload anywhere)
+    const form = document.getElementById('repairForm');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      const old = btn.textContent;
+      btn.textContent = 'Sent';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = old;
+        btn.disabled = false;
+        form.reset();
+      }, 1200);
+    });
   </script>
 </body>
 </html>
