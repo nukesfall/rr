@@ -66,14 +66,13 @@
       gap: 46px;
     }
 
-    .brandWord{
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      font-size: clamp(34px, 4.4vw, 78px);
-      line-height: 0.95;
-      margin:0;
-      white-space:nowrap;
+    /* NEW: logo image replaces the text */
+    .brandLogo{
+      height: clamp(34px, 4.4vw, 78px);
+      width: auto;
+      display:block;
       flex: 0 0 auto;
+      object-fit: contain;
     }
 
     .heroCopy{
@@ -236,11 +235,12 @@
         border-radius: 44px;
         padding: 28px 22px;
       }
-      .brandWord{
-        white-space:normal;
-        font-size: clamp(28px, 7vw, 44px);
-        line-height: 1.0;
+
+      /* NEW: keep logo responsive on mobile too */
+      .brandLogo{
+        height: clamp(28px, 7vw, 44px);
       }
+
       .heroCopy{
         font-size: clamp(18px, 5vw, 24px);
         line-height: 1.25;
@@ -298,7 +298,8 @@
     <!-- big pill header -->
     <div class="hero">
       <div class="pill" role="region" aria-label="Hero">
-        <h1 class="brandWord">ROBOT REPAIR CO.</h1>
+        <!-- REPLACED: text -> image -->
+        <img class="brandLogo" src="logox.png" alt="Robot Repair Co." />
         <p class="heroCopy">
           We Repair and Maintain Home Robots —
           Fast Turnarounds with Transparent Pricing
